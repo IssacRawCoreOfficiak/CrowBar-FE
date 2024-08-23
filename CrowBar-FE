@@ -1,0 +1,58 @@
+-- create the gui
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- create the crowbar button
+local crowbarButton = Instance.new("TextButton")
+crowbarButton.Parent = gui
+crowbarButton.Text = "CrowBar FE"
+crowbarButton.Size = UDim2.new(0, 200, 0, 50)
+
+-- function to equip the crowbar
+local function equipCrowbar()
+-- create the crowbar tool
+local tool = Instance.new("Tool")
+tool.Name = "Crowbar"
+tool.GripForward = Vector3.new(0, 0, -1)
+tool.GripPos = Vector3.new(0, 0, 0)
+tool.GripUp = Vector3.new(0, 1, 0)
+
+-- create the crowbar model
+local model = Instance.new("Model")
+model.Parent = tool
+local crowbar = Instance.new("Model")
+crowbar.Name = "Crowbar"
+crowbar.Parent = model
+crowbar.ModelId = "rbxassetid://5307569287"
+
+-- create the attack song
+local song = Instance.new("Sound")
+song.Parent = tool
+song.SoundId = "rbxassetid://9116511348"
+song:Play()
+
+-- parent the tool to the player's character
+tool.Parent = game.Players.LocalPlayer.Character
+tool.Handle.CanCollide = true
+end
+
+-- connect the crowbar button to the equip function
+crowbarButton.MouseButton1Click:Connect(equipCrowbar)
+
+-- create the kickerbypasser button
+local kickerbypasserButton = Instance.new("TextButton")
+kickerbypasserButton.Parent = gui
+kickerbypasserButton.Text = "kickerbypasser"
+kickerbypasserButton.Size = UDim2.new(0, 200, 0, 50)
+
+-- function to kick all players except for yourself
+local function kickAllPlayers()
+for _, player in pairs(game.Players:GetPlayers()) do
+if player ~= game.Players.LocalPlayer then
+player:Kick("kickerbypasser says goodbye! você foi expulso por bullying ou abusando do poder.")
+end
+end
+end
+
+-- connect the kickerbypasser button to the kick function
+kickerbypasserButton.MouseButton1Click:Connect(kickAllPlayers)
